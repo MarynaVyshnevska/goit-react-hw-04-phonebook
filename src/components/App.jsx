@@ -11,20 +11,24 @@ import contactsJson from './contacts.json';
 // import PropTypes from 'prop-types';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(contactsJson);
+  // const [contacts, setContacts] = useState(contactsJson);
+  const [contacts, setContacts] = useState(() => {
+    return JSON.parse(localStorage.getItem('contacts')) ?? [contactsJson];
+  });
   const [filter, setFilter] = useState('');
   
-  useEffect(() => {
-    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (parsedContacts) {
-      setContacts(parsedContacts);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+  //   if (parsedContacts) {
+  //     setContacts(parsedContacts);
+  //   }
+  // }, []);
   
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
   }, [contacts]); 
 
+  
   const addContact = newContact => {
     // console.log(newContact);
     checkContact(newContact)
